@@ -20,7 +20,7 @@ var aqiData = [
   ["上海", 50],
   ["福州", 10],
   ["广州", 50],
-  ["成都", 91],
+  ["成都", 90],
   ["西安", 100]
 ];
 
@@ -30,26 +30,24 @@ var aqiData = [
   var oUl = document.getElementById('aqi-list');
   for(var i = 0;i<len;i++){//遍历数组，并将大于60的项放到arr中。
     if(aqiData[i][1]>60){
-      arr.push(aqiData[i][1]);
+        arr.push(aqiData[i]);
     }
   }
-arr.sort(order);//自大而小排列
+  var tmp =[];
+  for(var i=0;i<arr.length;i++){
+    for(var j=i+1;j<arr.length;j++){
+      if(arr[i][1] < arr[j][1]){
+        tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+      }
+    }
+  }
 for(var j =0;j<arr.length;j++){
-  for(var i = 0;i<len;i++){
-  if(arr[j] == aqiData[i][1]){
     var oLi = document.createElement('li');
-    oLi.innerHTML = "第" + (j+1) + "名：" + aqiData[i][0] + ',' + aqiData[i][1];
+    oLi.innerHTML = "第" + (j+1) + "名：" + arr[j][0] + ',' + arr[j][1];
     oUl.appendChild(oLi);
   }
-  
-}
-}
-
-
-  //自定义排序函数
-function order(a,b){
-  return a>b? -1 : 1;
-}
 })();
 
 
